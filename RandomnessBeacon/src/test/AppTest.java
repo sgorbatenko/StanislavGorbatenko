@@ -4,6 +4,7 @@ package test;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.RestClientApp;
 import main.Utils;
 
 import org.testng.Assert;
@@ -55,4 +56,13 @@ public class AppTest
         Map actual = Utils.getCharsOccurrencesMap(testData);
         Assert.assertEquals(actual, expected);
     }
+
+    @Test
+    public void testFromToOutputValusSumed() throws Exception
+    {
+        Assert.assertEquals(RestClientApp.getForTimeStampOutputValue("1440614494"),
+            "8EBDC5ECB1C69EB9F05ECF6C947F1904F4B43C48A802D8C0AE54F6B62EC58E10126217AD62F2F5C357C2BB42632FECCB62FC243B38167B71C207F22E75887AF7");
+    }
+
+
 }

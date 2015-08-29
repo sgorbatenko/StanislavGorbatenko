@@ -23,7 +23,30 @@ public class RestClientApp
 
     private void start() throws Exception
     {
+        calcCharOccurrences();
+    }
+
+    public void calcCharOccurrences() throws Exception
+    {
+        String outputValue = getLastOutputValue();
+        String[] outputValueArr = outputValue.split("");
+        System.out.println(Utils.getCharsOccurrencesMap(outputValueArr));
+    }
+
+    public String getLastOutputValue() throws Exception
+    {
         URL url = new URL("https://beacon.nist.gov/rest/record/last");
+        return getOutputValue(url);
+    }
+
+    public static String getForTimeStampOutputValue(String timestamp) throws Exception
+    {
+        URL url = new URL("https://beacon.nist.gov/rest/record/" + timestamp);
+        return getOutputValue(url);
+    }
+
+    private static String getOutputValue(URL url) throws Exception
+    {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
@@ -31,9 +54,7 @@ public class RestClientApp
         NodeList descNodes = doc.getElementsByTagName("outputValue");
 
         String outputValue = descNodes.item(0).getTextContent();
-        String[] outputValueArr = outputValue.split("");
-        System.out.println(Utils.getCharsOccurrencesMap(outputValueArr));
+        return outputValue;
     }
-
 
 }

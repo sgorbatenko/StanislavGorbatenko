@@ -2,7 +2,6 @@
 package main;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,37 +15,13 @@ public class Utils
     public static Map<String, Integer> getCharsOccurrencesMap(String[] outputValueArr)
     {
         Map<String, Integer> resultMap = new HashMap<String, Integer>();
-        Arrays.sort(outputValueArr);
 
-        int i;
-        if (outputValueArr[0].equals(""))
+        for (String key : outputValueArr)
         {
-            i = 2;
-        }
-        else
-        {
-            i = 1;
-        }
-
-        for (int count = 1; i < outputValueArr.length; count++, i++)
-        {
-            if (!outputValueArr[i].equals(outputValueArr[i - 1]) || i == outputValueArr.length - 1)
-            {
-                if (i == outputValueArr.length - 1 && !outputValueArr[i].equals(outputValueArr[i - 1]))
-                {
-                    resultMap.put(outputValueArr[i - 1], count);
-                    resultMap.put(outputValueArr[i], 1);
-                    break;
-                }
-                if (i == outputValueArr.length - 1 && outputValueArr[i].equals(outputValueArr[i - 1]))
-                {
-                    resultMap.put(outputValueArr[i], count + 1);
-                    break;
-                }
-
-                resultMap.put(outputValueArr[i - 1], count);
-                count = 0;
-            }
+            if (resultMap.containsKey(key))
+                resultMap.put(key, resultMap.get(key) + 1);
+            else if (!key.equals(""))
+                resultMap.put(key, 1);
         }
         return resultMap;
     }
